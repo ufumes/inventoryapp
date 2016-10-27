@@ -24,8 +24,5 @@ ref.once("value")
   .then(function(snapshot) {
     var name = snapshot.child("ufumes").val(); // { first: "Ada", last: "Lovelace"} USE toString() to display raw data
     var firstName = snapshot.child("ufumes/firstname").val(); // "Francis2"
-    //var lastName = snapshot.child("ufumes").child("lastname").val(); // "Umeoguaju"
-    //var age = snapshot.child("age").val(); // null is nothing like that
-    //var key = snapshot.key;
-    //testfirebase=name.sessionid //good
+
   });
