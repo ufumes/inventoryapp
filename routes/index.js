@@ -37,9 +37,43 @@ router.get('/', function(req, res) {
 });
 
 // index page 
-router.get('/welcomesuperadmin', function(req, res) {
-    res.render('welcomesuperadmin');
+router.get('/member', function(req, res) {
+    res.render('pages/member');
 });
+// index page 
+router.get('/member/reportmissing', function(req, res) {
+    res.render('pages/member/reportmissing');
+});
+// index page 
+router.get('/member/reportfound', function(req, res) {
+    res.render('pages/member/reportfound');
+})
+// index page 
+router.get('/admin/addasset', function(req, res) {
+    res.render('pages/admin/addasset');
+})
+// index page 
+router.get('/admin/assignasset', function(req, res) {
+    res.render('pages/admin/assignasset');
+})
+// index page 
+router.get('/admin/reclaimasset', function(req, res) {
+    res.render('pages/admin/reclaimasset');
+})
+// index page 
+router.get('/admin/viewasset', function(req, res) {
+    res.render('pages/admin/viewasset');
+})
+// index page 
+router.get('/admin/viewlost', function(req, res) {
+    res.render('pages/admin/viewlost');
+})
+// index page 
+router.get('/admin/resolvelost', function(req, res) {
+    res.render('pages/admin/resolvelost');
+})
+
+
 
 
 // admin page 
@@ -125,6 +159,7 @@ module.exports = router;
 
 
 
+//NOTE IN USE
 //this function validates that only text is returned.
 //only text, no spaces or special character @ .
 function validatetextonly(textdata){
@@ -136,6 +171,8 @@ function validatetextonly(textdata){
   //}
 }
 
+
+//NOTE IN USE
 function checkifusernameexist(username,password){
   console.log('in function');
   var mydatabase=firebase.database().ref('users'); 
