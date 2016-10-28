@@ -12,57 +12,10 @@
     </header>
 
     <main>
-    <strong><p class="text-danger">ADMIN PANEL</p></strong>
+    <strong><p class="text-danger">SUPER ADMIN PANEL</p></strong>
     <p><span style="color:red">Welcome</span> Francis</p> 
         <div class="jumbotron">
-            <p>Welcome to templating using EJS</p>
- 
-             <!-- Columns are always 50% wide, on mobile and desktop -->
-            <div class="row">
-              <div class="col-xs-4">
-               <form>
-                    <div class="form-group">
-                        <label for="email">Email:</label>
-                         <input type="email" class="form-control" id="email" placeholder="Enter email">
-                    </div>
-                    <div class="form-group">
-                        <label for="pwd">Password:</label>
-                        <input type="password" class="form-control" id="pwd" placeholder="Enter password">
-                    </div>
-                    <div class="checkbox">
-                        <label><input type="checkbox"> Remember me</label>
-                    </div>
-                    <button type="submit" class="btn btn-default">Submit</button>
-                 </form>
-              </div>
-              <div class="col-xs-7 col-xs-offset-1" style="overflow-y: scroll; height:400px;">
-            <ul>
-                <% drinks.forEach(function(drink) { %>
-                <li><%= drink.name %> - <%= drink.drunkness %></li>
-                <% }); %>
-            </ul>
-            <table>
-                <% drinks.forEach(function(drink) { %>
-                <tr>
-                    <td><%= drink.name %></td>
-                    <td><%= drink.drunkness %></td>
-                </tr>
-                <% }); %>
-            </table>
-           <table>
-              <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-              </tr>
-                <% for(var i=0; i < datab.length; i++) { %>
-              <tr>
-                <td><%= datab[i].id %></td>
-                <td><%= datab[i].name %></td>
-              </tr><% } %>
-            </table>
-            <p><%= message %></p>
-
-            </div>
+           <p class="text-danger">Add admin members</p> 
         </div>
     </main>
 
