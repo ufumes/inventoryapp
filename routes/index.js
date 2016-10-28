@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var firebase = require("firebase");
 
-
+console.log('hello how are you')
 
 //initialize firebase
 var config = {
@@ -12,28 +12,28 @@ var config = {
     storageBucket: "inventoryapp-999d9.appspot.com",
     messagingSenderId: "227817101973"
   };
-  firebase.initializeApp(config);
-var testfirebase=firebase.database().ref(); //gets the rootpath
+firebase.initializeApp(config);
+var testfirebase="hello"; //gets the rootpath
 
 
-var ref = firebase.database().ref('users'); //var ref = firebase.database().ref("users/ada");
-ref.once("value")
-  .then(function(snapshot) {
-    var name = snapshot.child("ufumes").val(); // { first: "Ada", last: "Lovelace"} USE toString() to display raw data
-    var firstName = snapshot.child("ufumes/firstname").val(); // "Francis2"
-    //var lastName = snapshot.child("ufumes").child("lastname").val(); // "Umeoguaju"
-    //var age = snapshot.child("age").val(); // null is nothing like that
-    //var key = snapshot.key;
-    //testfirebase=name.sessionid //good
-  });
+
+
 
 
 var ref2 = firebase.database().ref('users/ufumes/lastname'); //var ref = firebase.database().ref("users/ada");;
 ref2.remove();
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: "how are you doing2?" });
+router.get('/', function(req, res) {
+  var ref = firebase.database().ref('users'); //var ref = firebase.database().ref("users/ada");
+  ref.once("value")
+    .then(function(snapshot) {
+      var testfirebase = snapshot.child("ufumes/firstname").val();
+
+      res.render('pages/index');
+      //console.log(snapshot.child("ufumes/firstname").val());
+
+    });
 });
 
 // index page 
@@ -41,14 +41,10 @@ router.get('/welcomesuperadmin', function(req, res) {
     res.render('welcomesuperadmin');
 });
 
-//  page 
-router.get('/pages', function(req, res) {
-    res.render('pages');
-});
 
 // admin page 
 router.get('/admin', function(req, res) {
-	var drinks = [
+  var drinks = [
         { name: 'Bloody Mary', drunkness: 3 },
         { name: 'Martini', drunkness: 5 },
         { name: 'Scotch', drunkness: 20 }    ];
@@ -65,7 +61,7 @@ router.get('/admin', function(req, res) {
 
 // super admin page 
 router.get('/superadmin', function(req, res) {
-	var drinks = [
+  var drinks = [
         { name: 'Bloody Mary', drunkness: 3 },
         { name: 'Martini', drunkness: 5 },
         { name: 'Scotch', drunkness: 20 }    ];
@@ -85,16 +81,29 @@ router.get('/login', function(req, res) {
     res.render('pages/login');
 });
 
+console.log('before router')
 // login page 
-router.post('/login', function(req, res) {
+router.post('/login', function(req, res,next) {
+    console.log('in post')
+
       // Get values from POST request. These can be done through forms or REST calls. These rely on the "name" attributes for forms
-    var username = req.body.name;
-    var userpassword=req.body.name;
-    
-    //res.render('pages/login');
-
-    
-
+    var username = req.body.username;
+    var userpassword=req.body.password;
+    var returnedOutput =""
+    console.log(username + ' ' + userpassword)
+    var ref = firebase.database().ref('users'); //var ref = firebase.database().ref("users/ada");
+    ref.once("value")
+      .then(function(snapshot) {
+        returnedOutput = snapshot.child(username + '/password').val(); 
+                  console.log('in post after snapshot= ' + returnedOutput);
+          console.log(snapshot.child(username + '/roles').val());
+          console.log(snapshot.child(username + '/roles').val());
+          if (returnedOutput===userpassword){
+              res.redirect("/admin");
+          }else{
+            res.redirect("/");
+          }
+          }).catch(next);
 });
 
 
@@ -115,3 +124,28 @@ router.get('/signup', function(req, res) {
 module.exports = router;
 
 
+
+//this function validates that only text is returned.
+//only text, no spaces or special character @ .
+function validatetextonly(textdata){
+ //  var words = textdata.replace(/\t/g, ' '); 
+ // if (){
+ //   return true
+ // }else{
+ //   return false
+  //}
+}
+
+function checkifusernameexist(username,password){
+  console.log('in function');
+  var mydatabase=firebase.database().ref('users'); 
+  mydatabase.once("value")
+    .then(function(snapshot) {
+    //var name = snapshot.child("ufumes").val(); // { first: "Ada", last: "Lovelace"} USE toString() to display raw data
+    //var suppliedpassword = snapshot.child(username + '/' + password).val(); // "Francis2"
+    var suppliedpassword = snapshot.child("ufumes/firstname").val();
+    console.log(suppliedpassword );
+
+  });
+}
+//function
