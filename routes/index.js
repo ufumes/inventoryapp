@@ -129,14 +129,25 @@ router.post('/login', function(req, res,next) {
     ref.once("value")
       .then(function(snapshot) {
         returnedOutput = snapshot.child(username + '/password').val(); 
-                  console.log('in post after snapshot= ' + returnedOutput);
-          console.log(snapshot.child(username + '/roles').val());
-          console.log(snapshot.child(username + '/roles').val());
+          var roles = snapshot.child(username + '/roles').val();
+          var firstname=snapshot.child(username + '/firstname').val();
+
           if (returnedOutput===userpassword){
-              res.redirect("/admin");
+              if (roles==null){
+                res.redirect("/");
+              }else if (roles==="admin"){
+                res.redirect("/admin");
+              }else if (roles==="superadmin"){
+                res.redirect("/superadmin");
+              }else if (roles==="member"){
+              res.redirect("/member");
+              }else{
+                res.redirect("/login");
+              }
           }else{
-            res.redirect("/");
+            res.redirect("/login");
           }
+
           }).catch(next);
 });
 
